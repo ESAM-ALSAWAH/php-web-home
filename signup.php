@@ -1,6 +1,7 @@
 
 <?php 
-session_start();
+ob_start();
+  session_start();
 
 if (isset($_SESSION["loggedin"]) ) {
   header("Location: ./");

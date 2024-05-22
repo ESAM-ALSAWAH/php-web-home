@@ -1,5 +1,12 @@
-<?php include_once 'scripts/cheekAuthenticated.php'; ?>
 
+<?php 
+session_start();
+$isLogin=false;
+if (isset($_SESSION) && isset($_SESSION["loggedin"]) ) {
+  $isLogin=true;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,25 +15,46 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User login system</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+  <script src="./lib/tailwind.js"></script>
   <link rel="stylesheet" href="./css/main.css">
   <link rel="shortcut icon" href="./img/favicon-16x16.png" type="image/x-icon">
 </head>
 
 <body>
-  <div class="container">
-    <div class="alert alert-success my-5">
-      Welcome ! You are now signed in to your account.
+  
+
+<nav class="bg-white py-4">
+  <div class="container-sm ">
+    <div class="flex justify-between items-center ">
+      <h1 class="font-bold text-2xl ">PetShop<span class="text-[#33c1c1] text-4xl ">.</span></h1>
+
+         <?php
+                echo $isLogin ?
+                    '<a href="./logout.php" class="btn-primary py-2 rounded-lg">Logout</a>' :
+                    '<a href="./login.php" class="btn-primary py-2 rounded-lg">SignIn</a>';
+                ?>
     </div>
-    <!-- User profile -->
-    <div class="row justify-content-center">
-      <div class="col-lg-5 text-center">
-        <img src="./img/blank-avatar.jpg" class="img-fluid rounded" alt="User avatar" width="180">
-        <h4 class="my-4">Hello, <?= $username; ?></h4>
-        <a href="./logout.php" class="btn btn-primary">Log Out</a>
+  </div>
+</nav>
+<div class="hero">
+  <div class="container-sm">
+    <div class="flex items-center justify-between gap-5">
+      <div class="flex-1">
+        <h3 class="text-[#33c1c1] text-xl font-bold mb-1.5">
+Save 20 -30% Off
+        </h3>
+        <h1 class="text-[#333333] font-[800] mb-10 --heading-one leading-tight">
+          Everything your pet need
+        </h1>
+       
+        <button class="btn-primary">SHOP NOW</button>
+      </div>
+      <div class="flex-1 hidden md:flex md:justify-end">
+        <img src="./assets/imgs/hero-image.png" alt="pet" class="object-cover">
       </div>
     </div>
   </div>
+</div>
 </body>
 
 </html>
