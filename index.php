@@ -95,11 +95,53 @@ if (isset($_SESSION) && isset($_SESSION["loggedin"]) ) {
     </div>
 
     <div class="container-sm py-20">
+      <div class="heading flex flex-col items-center justify-center gap-2">
+        <img src="./assets/imgs/heading-img.png" alt="heading-img">
+        <div class="flex items-center justify-center gap-20 w-full">
+          <div class="h-[2px] flex-1 bg-[#ddd]"></div>
+        <h1 class="text-center --heading-three text-[#333333] font-bold">Trending Products</h1>
+          <div class="h-[2px] flex-1 bg-[#ddd]"></div>
+
+        </div>
+      </div>
+
+      <div id="product-list" class="mt-10">
+        <div class="flex items-center justify-center flex-wrap gap-10">
+          <div class="min-w-[250px] max-w-[270px] w-full grid place-items-center gap-2 bg-white border rounded-lg py-5 px-5">
+            <img src="./assets/imgs/products/arrival-two03.png" class="w-auto h-[200px] max-w-[200px]" >
+            <h5 class="text-lg ">Moderna Trendy Story</h5>
+            <h6 class="font-bold">$100</h6>
+            <button class="btn-primary py-[4px]">Add to Cart</button>
+          </div>
+          <div class="min-w-[250px] max-w-[270px] w-full grid place-items-center gap-2 bg-white border rounded-lg py-5 px-5">
+            <img src="./assets/imgs/products/arrival-two04.png" class="w-auto h-[200px] max-w-[200px]" >
+            <h5 class="text-lg ">Naughty Cat Bentonite</h5>
+            <h6 class="font-bold">$250</h6>
+            <button class="btn-primary py-[4px]">Add to Cart</button>
+          </div>
+          <div class="min-w-[250px] max-w-[270px] w-full grid place-items-center gap-2 bg-white border rounded-lg py-5 px-5">
+            <img src="./assets/imgs/products/product08.png" class="w-auto h-[200px] max-w-[200px]">
+            <h5 class="text-lg ">Drools Calcium</h5>
+            <h6 class="font-bold">$50</h6>
+
+            <button class="btn-primary py-[4px]">Add to Cart</button>
+          </div>
+          <div class="min-w-[250px] max-w-[270px] w-full grid place-items-center gap-2 bg-white border rounded-lg py-5 px-5">
+            <img src="./assets/imgs/products/product05.png"  class="w-auto h-[200px] max-w-[200px]">
+            <h5 class="text-lg ">Moderna Scoop & Sift</h5>
+            <h6 class="font-bold">$30</h6>
+
+            <button class="btn-primary py-[4px]">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-sm py-20">
       <div class="flex flex-col sm:grid grid-cols-2 gap-4">
-          <img src="/assets/imgs/card-1.png" alt="card-1">
+          <img src="./assets/imgs/card-1.png" alt="card-1">
         <div class="flex flex-col gap-4 sm:gap-1 sm:grid grid-cols-1">
-          <img src="/assets/imgs/card-2.png" alt="card-2">
-          <img src="/assets/imgs/card-3.png" alt="card-3">
+          <img src="./assets/imgs/card-2.png" alt="card-2">
+          <img src="./assets/imgs/card-3.png" alt="card-3">
 
         </div>
       </div>
@@ -107,22 +149,22 @@ if (isset($_SESSION) && isset($_SESSION["loggedin"]) ) {
     <div class="container-sm py-10">
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
          <div class="flex flex-col justify-center gap-1">
-          <img src="/assets/icons/shooping.png" width="40" height="40" class="mx-auto" />
+          <img src="./assets/icons/shooping.png" width="40" height="40" class="mx-auto" />
           <p class="text-[#333] text-sm font-semibold text-center">FREE SHIPPING</p>
           <p class="text-[#787878] text-xs font-semibold text-center">For All Order Over $99</p>
          </div>
          <div class="flex flex-col justify-center gap-1">
-          <img src="/assets/icons/support.png" width="40" height="40" class="mx-auto" />
+          <img src="./assets/icons/support.png" width="40" height="40" class="mx-auto" />
           <p class="text-[#333] text-sm font-semibold text-center">FRIENDLY SUPPORT</p>
           <p class="text-[#787878] text-xs font-semibold text-center">24/7 Customer Support</p>
          </div>
          <div class="flex flex-col justify-center gap-1">
-          <img src="/assets/icons/secure.png" width="40" height="40" class="mx-auto" />
+          <img src="./assets/icons/secure.png" width="40" height="40" class="mx-auto" />
           <p class="text-[#333] text-sm font-semibold text-center">SECURE PAYMENT</p>
           <p class="text-[#787878] text-xs font-semibold text-center">100% Secure Payment</p>
          </div>
          <div class="flex flex-col justify-center gap-1">
-          <img src="/assets/icons/return.png" width="40" height="40" class="mx-auto" />
+          <img src="./assets/icons/return.png" width="40" height="40" class="mx-auto" />
           <p class="text-[#333] text-sm font-semibold text-center">SHIPPING & RETURN</p>
           <p class="text-[#787878] text-xs font-semibold text-center">within 30days For Refund</p>
          </div>
@@ -130,11 +172,17 @@ if (isset($_SESSION) && isset($_SESSION["loggedin"]) ) {
     </div>
 
 
-    <footer class="mt-[100px] ">
-      <img src="/assets/imgs/footer-top-shape.png" class="absolute -z-10 -top-[30px] w-full">
-      <div class="container-sm z-30 absolute -top-[10%]  left-1/2 -translate-x-1/2">
-      <img src="/assets/imgs/footer-image.png" class=" mx-auto w-full ">
-</div>
+    <footer class="mt-[200px]">
+     
+      <div class="hidden sm:flex container-sm z-30 px-20 absolute -top-[5vh] md:-top-[8vh] left-1/2 -translate-x-1/2">
+      <img src="./assets/imgs/footer-image.png" class=" mx-auto w-full max-w-[1100px] ">
+      </div>
+
+      <div class="h-full flex items-center justify-center md:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <h1 class="font-bold text-2xl">
+            PetShop<span class="text-[#33c1c1] text-6xl">.</span>
+          </h1>
+      </div>
     </footer>
   </body>
 </html>

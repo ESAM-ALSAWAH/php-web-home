@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
+
 :root {
   --heading-one: clamp(1.5rem, 2.8vw + 1rem, 4.75rem);
   --heading-two: clamp(1.5rem, 1.7vw + 1rem, 2.875rem);
@@ -6,14 +7,17 @@
   --heading-four: clamp(1.125rem, 0.5vw + 1rem, 1.5rem);
   --heading-five: clamp(1.0625rem, 0.3vw + 1rem, 1.125rem);
 }
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
+
 body,
 html {
   font-family: "Nunito", sans-serif;
+  background-color: #fafcff !important;
 }
 
 .container-sm {
@@ -22,8 +26,13 @@ html {
   margin: auto;
   padding-inline: 10px;
 }
+
 .--heading-one {
   font-size: clamp(1.5rem, 2.8vw + 1rem, 4.75rem);
+}
+
+.--heading-three {
+  font-size: clamp(1.375rem, .8vw + 1rem, 2.25rem);
 }
 
 .btn-primary {
@@ -41,6 +50,7 @@ html {
   border-color: #33c1c1;
   background-color: transparent;
 }
+
 /* hero
  */
 .hero {
@@ -56,7 +66,17 @@ footer {
   background: url("/assets/imgs/footer.png");
   background-position: left;
   background-repeat: no-repeat;
-  height: 400px;
+  max-height: 400px;
+  min-height: 300px;
   background-color: #e0faff;
   position: relative;
+}
+
+footer::before {
+  content: url("../assets/imgs/footer-top-shape.png");
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -50px;
+  overflow: hidden;
 }
