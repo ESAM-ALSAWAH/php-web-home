@@ -1,15 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("loginForm");
-  const passwordInput = document.getElementById("password");
-  const togglePassword = document.getElementById("togglePassword");
+  const loginSubmitButton = document.getElementById("login-submit");
 
-  togglePassword.addEventListener("change", () => {
-    passwordInput.type = togglePassword.checked ? "text" : "password";
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
+  loginSubmitButton.addEventListener("click", async (e) => {
     const formData = new FormData(form);
 
     try {
@@ -26,12 +19,22 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(result.message);
       }
 
-      alert(result.message);
+      Swal.fire({
+        title: "Login Successfully",
+        text: result.message,
+        icon: "success",
+        confirmButtonText: "Close",
+      });
       if (result.status === "success") {
         window.location.href = "./";
       }
     } catch (error) {
-      alert("Oops! " + error.message);
+      Swal.fire({
+        title: "Error!",
+        text: error.message,
+        icon: "error",
+        confirmButtonText: "Close",
+      });
     }
   });
 });

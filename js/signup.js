@@ -1,15 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector("form");
-  const passwordInput = document.getElementById("password");
-  const togglePassword = document.getElementById("togglePassword");
-
-  togglePassword.addEventListener("change", () => {
-    passwordInput.type = togglePassword.checked ? "text" : "password";
-  });
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
+  const registerSubmitButton = document.getElementById("register-submit");
+  registerSubmitButton.addEventListener("click", async (e) => {
     const formData = new FormData(form);
 
     let hasError = false;
@@ -63,12 +55,22 @@ document.addEventListener("DOMContentLoaded", () => {
           throw new Error(result.message);
         }
 
-        alert(result.message);
+        Swal.fire({
+          title: "Register Successfully",
+          text: result.message,
+          icon: "success",
+          confirmButtonText: "Close",
+        });
         if (result.status === "success") {
           window.location.href = "./login.php";
         }
       } catch (error) {
-        alert("Oops! " + error.message);
+        Swal.fire({
+          title: "Error!",
+          text: error.message,
+          icon: "error",
+          confirmButtonText: "Close",
+        });
       }
     }
   });

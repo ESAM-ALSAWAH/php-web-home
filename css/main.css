@@ -20,6 +20,7 @@ html {
   max-width: 1320px;
   width: 100%;
   margin: auto;
+  padding-inline: 10px;
 }
 .--heading-one {
   font-size: clamp(1.5rem, 2.8vw + 1rem, 4.75rem);
@@ -49,4 +50,13 @@ html {
   background-repeat: no-repeat;
   background-position: center;
   padding: 25px 0;
+}
+
+footer {
+  background: url("/assets/imgs/footer.png");
+  background-position: left;
+  background-repeat: no-repeat;
+  height: 400px;
+  background-color: #e0faff;
+  position: relative;
 }
