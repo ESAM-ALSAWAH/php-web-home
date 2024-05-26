@@ -1,39 +1,7 @@
-<?php 
-require "./scripts/config.php";
-session_start();
-$isLogin = false;
-if (isset($_SESSION) && isset($_SESSION["loggedin"])) {
-  $isLogin = true;
-}
-$sql_get_cart_id = "SELECT id FROM carts WHERE user_id = ?";
-$stmt_get_cart_id = mysqli_prepare($link, $sql_get_cart_id);
-mysqli_stmt_bind_param($stmt_get_cart_id, "i", $_SESSION['id']);
-mysqli_stmt_execute($stmt_get_cart_id);
-mysqli_stmt_store_result($stmt_get_cart_id);
-
-$cart_id = mysqli_stmt_num_rows($stmt_get_cart_id);
-
-$sql = "SELECT p.id, p.title, p.img, p.description, p.qty, p.price, p.created_at, 
-               CASE WHEN ci.product_id IS NOT NULL THEN TRUE ELSE FALSE END AS isAdded
-        FROM products p
-        LEFT JOIN cart_items ci ON p.id = ci.product_id AND ci.cart_id = ? 
-        WHERE p.is_trend = 1";
-$stmt = $link->prepare($sql);
-if ($stmt) {
-    $stmt->bind_param("i", $cart_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $trendingProducts = [];
-    while($row = $result->fetch_assoc()) {
-        $trendingProducts[] = $row;
-    }
-    $stmt->close();
-} else {
-    // Handle statement preparation error
-    $trendingProducts = [];
-}
-
+<?php
+$data = include 'scripts/trending_products.php';
+$isLogin = $data['isLogin'];
+$trendingProducts = $data['trendingProducts'];
 ?>
 <!DOCTYPE html>
 <html lang="en">

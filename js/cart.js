@@ -1,15 +1,27 @@
-// Script for handling DOMContentLoaded event
-document.addEventListener("DOMContentLoaded", function () {
-  var productButtons = document.querySelectorAll(
-    "#product-list button[data-product-id]"
-  );
+let up = document.querySelector(".up");
+let mainHeader = document.querySelector(".main-header");
 
-  productButtons.forEach(function (button) {
-    button.addEventListener("click", handleCartAction);
+window.addEventListener("scroll", () => {
+  if (window.scrollY >= 200) {
+    mainHeader.classList.add("main-header-sticky");
+  } else {
+    mainHeader.classList.remove("main-header-sticky");
+  }
+  if (window.scrollY >= 300) {
+    up.style.bottom = "+40px";
+  } else {
+    up.style.bottom = "-40px";
+  }
+
+  up.addEventListener("click", () => {
+    window.scrollTo(0, 0);
   });
 });
 
-// Function to handle cart actions
+var productButtons = document.querySelectorAll(
+  "#cart-list span[data-product-id]"
+);
+
 function handleCartAction(event) {
   event.preventDefault();
 
@@ -33,7 +45,11 @@ function handleCartAction(event) {
     .then((response) => {
       if (response.ok) {
         console.log(successMessage);
-        updateButton(button, isAddAction, buttonText);
+        // Get the row element and remove it
+        var row = button.closest(".row");
+        if (row) {
+          row.remove();
+        }
         return response.json();
       } else if (response.status === 401) {
         return response.json();
@@ -42,7 +58,7 @@ function handleCartAction(event) {
       }
     })
     .then((data) => {
-      if (data && data.message == "Unauthorized") {
+      if (data && data.message === "Unauthorized") {
         window.location.assign("login.php");
       }
     })
@@ -51,12 +67,6 @@ function handleCartAction(event) {
     });
 }
 
-// Function to update button after cart action
-function updateButton(button, isAddAction, buttonText) {
-  button.innerText = buttonText;
-  button.id = isAddAction ? "remove-from-cart" : "add-to-cart";
-  button.classList.toggle("btn-primary");
-  button.classList.toggle("btn-secondary");
-  button.removeEventListener("click", handleCartAction);
+productButtons.forEach(function (button) {
   button.addEventListener("click", handleCartAction);
-}
+});

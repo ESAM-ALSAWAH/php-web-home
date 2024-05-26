@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     # Prepare a select statement
     $sql = "SELECT id, username, password FROM users WHERE username = ? OR email = ?";
 
-    if ($stmt = mysqli_prepare($link, $sql)) {
+    if ($stmt = mysqli_prepare($conn, $sql)) {
       # Bind variables to the statement as parameters
       mysqli_stmt_bind_param($stmt, "ss", $param_user_login, $param_user_login);
 
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
   # Close connection
-  mysqli_close($link);
+  mysqli_close($conn);
 
   # Send a JSON response with appropriate error message
   http_response_code(401); // Unauthorized

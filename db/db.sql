@@ -20,7 +20,7 @@ CREATE TABLE `products` (
 CREATE TABLE `carts` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `user_id` int(11) NOT NULL,
-  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );
 
 CREATE TABLE `cart_items` (
@@ -29,5 +29,5 @@ CREATE TABLE `cart_items` (
   `product_id` int(11) NOT NULL,
   `qty` int(11) NOT NULL,
   FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),
-  FOREIGN KEY (`product_id`) REFERENCES `products` (`id`),
+  FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 );

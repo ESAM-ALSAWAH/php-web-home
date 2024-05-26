@@ -1,38 +1,7 @@
-<?php 
-require "./scripts/config.php";
-session_start();
-$isLogin = false;
-if (isset($_SESSION) && isset($_SESSION["loggedin"])) {
-  $isLogin = true;
-}
-$sql_get_cart_id = "SELECT id FROM carts WHERE user_id = ?";
-$stmt_get_cart_id = mysqli_prepare($link, $sql_get_cart_id);
-mysqli_stmt_bind_param($stmt_get_cart_id, "i", $_SESSION['id']);
-mysqli_stmt_execute($stmt_get_cart_id);
-mysqli_stmt_store_result($stmt_get_cart_id);
-
-$cart_id = mysqli_stmt_num_rows($stmt_get_cart_id);
-
-$sql = "SELECT p.id, p.title, p.img, p.description, p.qty, p.price, p.created_at, 
-               CASE WHEN ci.product_id IS NOT NULL THEN TRUE ELSE FALSE END AS isAdded
-        FROM products p
-        LEFT JOIN cart_items ci ON p.id = ci.product_id AND ci.cart_id = ?";
-$stmt = $link->prepare($sql);
-if ($stmt) {
-    $stmt->bind_param("i", $cart_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    $trendingProducts = [];
-    while($row = $result->fetch_assoc()) {
-        $trendingProducts[] = $row;
-    }
-    $stmt->close();
-} else {
-    // Handle statement preparation error
-    $trendingProducts = [];
-}
-
+<?php
+$data = include 'scripts/products.php';
+$isLogin = $data['isLogin'];
+$products = $data['products'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,7 +9,7 @@ if ($stmt) {
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Pet Shop</title>
+    <title>Pet Shop | Products</title>
     <script src="./lib/tailwind.js"></script>
     <script defer src="./js/index.js"></script>
     <link rel="stylesheet" href="./css/main.css" />
@@ -97,7 +66,7 @@ if ($stmt) {
       </div>
     </div>
 
-    <!-- trend products -->
+    <!--  products -->
     <div class="container-sm py-20">
       <div class="heading flex flex-col items-center justify-center gap-2">
         <img src="./assets/imgs/heading-img.png" alt="heading-img">
@@ -109,8 +78,8 @@ if ($stmt) {
       </div>
       <div id="product-list" class="mt-10">
         <div class="flex items-center justify-center flex-wrap gap-10">
-    <?php if (!empty($trendingProducts)) : ?>
-    <?php foreach ($trendingProducts as $product) : ?>
+    <?php if (!empty($products)) : ?>
+    <?php foreach ($products as $product) : ?>
         <div class="product-card relative min-w-[250px] max-w-[270px] w-full grid place-items-center gap-2 bg-white border rounded-lg py-5 px-5">
             <div class="absolute top-2 right-2 cursor-pointer">
                 <svg class="w-6 h-6 text-[#33C1C1] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">

@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Check if the username is already registered
   $sql = "SELECT id FROM users WHERE username = ?";
-  if ($stmt = mysqli_prepare($link, $sql)) {
+  if ($stmt = mysqli_prepare($conn, $sql)) {
     mysqli_stmt_bind_param($stmt, "s", $username);
     if (mysqli_stmt_execute($stmt)) {
       mysqli_stmt_store_result($stmt);
@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Check if the email is already registered
   $sql = "SELECT id FROM users WHERE email = ?";
-  if ($stmt = mysqli_prepare($link, $sql)) {
+  if ($stmt = mysqli_prepare($conn, $sql)) {
     mysqli_stmt_bind_param($stmt, "s", $email);
     if (mysqli_stmt_execute($stmt)) {
       mysqli_stmt_store_result($stmt);
@@ -51,16 +51,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   // Insert new user
   $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
-  if ($stmt = mysqli_prepare($link, $sql)) {
+  if ($stmt = mysqli_prepare($conn, $sql)) {
     $param_password = password_hash($password, PASSWORD_DEFAULT);
     mysqli_stmt_bind_param($stmt, "sss", $username, $email, $param_password);
     if (mysqli_stmt_execute($stmt)) {
       // Get the ID of the newly inserted user
-      $user_id = mysqli_insert_id($link);
+      $user_id = mysqli_insert_id($conn);
 
       // Insert a new record into the carts table for the user
       $sql_cart = "INSERT INTO carts (user_id) VALUES (?)";
-      $stmt_cart = mysqli_prepare($link, $sql_cart);
+      $stmt_cart = mysqli_prepare($conn, $sql_cart);
       mysqli_stmt_bind_param($stmt_cart, "i", $user_id);
       mysqli_stmt_execute($stmt_cart);
       mysqli_stmt_close($stmt_cart);
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $response = ["status" => "error", "message" => "Something went wrong. Please try again later."];
   }
 
-  mysqli_close($link);
+  mysqli_close($conn);
 }
 
 header('Content-Type: application/json');
