@@ -55,6 +55,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $param_password = password_hash($password, PASSWORD_DEFAULT);
     mysqli_stmt_bind_param($stmt, "sss", $username, $email, $param_password);
     if (mysqli_stmt_execute($stmt)) {
+      // Get the ID of the newly inserted user
+      $user_id = mysqli_insert_id($link);
+
+      // Insert a new record into the carts table for the user
+      $sql_cart = "INSERT INTO carts (user_id) VALUES (?)";
+      $stmt_cart = mysqli_prepare($link, $sql_cart);
+      mysqli_stmt_bind_param($stmt_cart, "i", $user_id);
+      mysqli_stmt_execute($stmt_cart);
+      mysqli_stmt_close($stmt_cart);
+
       $response = ["status" => "success", "message" => "Registration completed successfully. Login to continue."];
     } else {
       http_response_code(500);

@@ -32,7 +32,7 @@ html {
 }
 
 .--heading-three {
-  font-size: clamp(1.375rem, .8vw + 1rem, 2.25rem);
+  font-size: clamp(1.375rem, 0.8vw + 1rem, 2.25rem);
 }
 
 .btn-primary {
@@ -40,6 +40,16 @@ html {
   color: white;
   outline: none;
   border: 1px solid transparent;
+  padding: 14px 20px;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary {
+  background-color: #fff;
+  color: #33c1c1;
+  outline: none;
+  border: 1px solid #33c1c1;
   padding: 14px 20px;
   border-radius: 50px;
   transition: all 0.3s ease;
@@ -79,4 +89,13 @@ footer::before {
   right: 0;
   top: -50px;
   overflow: hidden;
+}
+
+.product-card > img {
+  transition: all 0.3s linear;
+  transform: scale(0.9);
+}
+
+.product-card:hover > img {
+  transform: scale(1);
 }

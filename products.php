@@ -16,8 +16,7 @@ $cart_id = mysqli_stmt_num_rows($stmt_get_cart_id);
 $sql = "SELECT p.id, p.title, p.img, p.description, p.qty, p.price, p.created_at, 
                CASE WHEN ci.product_id IS NOT NULL THEN TRUE ELSE FALSE END AS isAdded
         FROM products p
-        LEFT JOIN cart_items ci ON p.id = ci.product_id AND ci.cart_id = ? 
-        WHERE p.is_trend = 1";
+        LEFT JOIN cart_items ci ON p.id = ci.product_id AND ci.cart_id = ?";
 $stmt = $link->prepare($sql);
 if ($stmt) {
     $stmt->bind_param("i", $cart_id);
@@ -104,7 +103,7 @@ if ($stmt) {
         <img src="./assets/imgs/heading-img.png" alt="heading-img">
         <div class="flex items-center justify-center gap-20 w-full">
           <div class="h-[2px] flex-1 bg-[#ddd]"></div>
-          <h1 class="text-center --heading-three text-[#333333] font-bold">Trending Products</h1>
+          <h1 class="text-center --heading-three text-[#333333] font-bold">All Products</h1>
           <div class="h-[2px] flex-1 bg-[#ddd]"></div>
         </div>
       </div>
@@ -112,7 +111,13 @@ if ($stmt) {
         <div class="flex items-center justify-center flex-wrap gap-10">
     <?php if (!empty($trendingProducts)) : ?>
     <?php foreach ($trendingProducts as $product) : ?>
-        <div class="product-card min-w-[250px] max-w-[270px] w-full grid place-items-center gap-2 bg-white border rounded-lg py-5 px-5">
+        <div class="product-card relative min-w-[250px] max-w-[270px] w-full grid place-items-center gap-2 bg-white border rounded-lg py-5 px-5">
+            <div class="absolute top-2 right-2 cursor-pointer">
+                <svg class="w-6 h-6 text-[#33C1C1] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+  <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clip-rule="evenodd"/>
+</svg>
+
+            </div>
             <img src="<?php echo htmlspecialchars($product['img']); ?>" class="w-auto h-[200px] max-w-[200px]" alt="<?php echo htmlspecialchars($product['title']); ?>">
             <h5 class="text-lg"><?php echo htmlspecialchars($product['title']); ?></h5>
             <h6 class="font-bold">$<?php echo htmlspecialchars($product['price']); ?></h6>
@@ -129,47 +134,12 @@ if ($stmt) {
 
         </div>
       </div>
-      <div class="mt-10 flex justify-center">
-      <a href="./products.php" class="btn-primary  w-fit">More Products</a>
-      </div>
+      
     </div>
 
     <!-- ------- -->
 
-    <div class="container-sm py-20">
-      <div class="flex flex-col sm:grid grid-cols-2 gap-4">
-        <img src="./assets/imgs/card-1.png" alt="card-1">
-        <div class="flex flex-col gap-4 sm:gap-1 sm:grid grid-cols-1">
-          <img src="./assets/imgs/card-2.png" alt="card-2">
-          <img src="./assets/imgs/card-3.png" alt="card-3">
-        </div>
-      </div>
-    </div>
 
-    <div class="container-sm py-10">
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div class="flex flex-col justify-center gap-1">
-          <img src="./assets/icons/shooping.png" width="40" height="40" class="mx-auto" />
-          <p class="text-[#333] text-sm font-semibold text-center">FREE SHIPPING</p>
-          <p class="text-[#787878] text-xs font-semibold text-center">For All Order Over $99</p>
-        </div>
-        <div class="flex flex-col justify-center gap-1">
-          <img src="./assets/icons/support.png" width="40" height="40" class="mx-auto" />
-          <p class="text-[#333] text-sm font-semibold text-center">FRIENDLY SUPPORT</p>
-          <p class="text-[#787878] text-xs font-semibold text-center">24/7 Customer Support</p>
-        </div>
-        <div class="flex flex-col justify-center gap-1">
-          <img src="./assets/icons/secure.png" width="40" height="40" class="mx-auto" />
-          <p class="text-[#333] text-sm font-semibold text-center">SECURE PAYMENT</p>
-          <p class="text-[#787878] text-xs font-semibold text-center">100% Secure Payment</p>
-        </div>
-        <div class="flex flex-col justify-center gap-1">
-          <img src="./assets/icons/return.png" width="40" height="40" class="mx-auto" />
-          <p class="text-[#333] text-sm font-semibold text-center">SHIPPING & RETURN</p>
-          <p class="text-[#787878] text-xs font-semibold text-center">within 30days For Refund</p>
-        </div>
-      </div>
-    </div>
 
     <footer class="mt-[200px]">
       <div class="hidden sm:flex container-sm z-30 px-20 absolute -top-[5vh] md:-top-[8vh] left-1/2 -translate-x-1/2">
