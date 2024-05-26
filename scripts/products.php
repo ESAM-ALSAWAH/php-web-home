@@ -1,5 +1,5 @@
 <?php
-require "./scripts/config.php";
+require "config.php";
 session_start();
 
 $isLogin = false;
