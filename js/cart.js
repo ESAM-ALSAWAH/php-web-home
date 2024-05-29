@@ -1,23 +1,9 @@
 let up = document.querySelector(".up");
 let mainHeader = document.querySelector(".main-header");
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY >= 200) {
-    mainHeader.classList.add("main-header-sticky");
-  } else {
-    mainHeader.classList.remove("main-header-sticky");
-  }
-  if (window.scrollY >= 300) {
-    up.style.bottom = "+40px";
-  } else {
-    up.style.bottom = "-40px";
-  }
-
-  up.addEventListener("click", () => {
-    window.scrollTo(0, 0);
-  });
+up.addEventListener("click", () => {
+  window.scrollTo(0, 0);
 });
-
 var productButtons = document.querySelectorAll(
   "#cart-list span[data-product-id]"
 );
@@ -69,4 +55,42 @@ function handleCartAction(event) {
 
 productButtons.forEach(function (button) {
   button.addEventListener("click", handleCartAction);
+});
+
+const orderButton = document.getElementById("order-now");
+
+orderButton.addEventListener("click", function () {
+  // Send a POST request to the PHP script
+  fetch("scripts/create_order.php", {
+    method: "POST",
+  })
+    .then((response) => {
+      if (response.ok) {
+        Swal.fire({
+          icon: "success",
+          title: "Order Placed Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        }).then(() => {
+          // Reload the page to update the cart
+          location.reload();
+        });
+      } else {
+        return response.json().then((data) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: data.message,
+          });
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Something went wrong!",
+      });
+    });
 });

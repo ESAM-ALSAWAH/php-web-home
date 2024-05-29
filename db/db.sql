@@ -27,7 +27,15 @@ CREATE TABLE `cart_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `cart_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `qty` int(11) NOT NULL,
   FOREIGN KEY (`cart_id`) REFERENCES `carts` (`id`),
   FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+);
+
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `user_id` int(11) NOT NULL,
+  `total_amount` DECIMAL(11,3) NOT NULL,
+  `order_date` datetime NOT NULL DEFAULT current_timestamp(),
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
 );

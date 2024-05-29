@@ -1,6 +1,14 @@
 <?php 
-$data = include 'scripts/cart.php';
-$cart_items = $data['cart_items'];
+require "./scripts/config.php";
+
+session_start();
+
+if ( !isset($_SESSION["loggedin"]) ) {
+  header("Location: ./login.php");
+  exit;
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,9 +16,8 @@ $cart_items = $data['cart_items'];
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Cart</title>
+    <title>Profile</title>
     <script src="./lib/tailwind.js"></script>
-        <script src="./lib/sweetalert.js"></script>
     <link rel="stylesheet" href="./css/main.css" />
     <link
       rel="shortcut icon"
@@ -44,7 +51,7 @@ $cart_items = $data['cart_items'];
           <a href="./" class="text-white font-semibold cursor-pointer">Home</a>
 
           <div class="flex items-center gap-3">
-            <a href="#">
+            <a href="./cart.php">
               <svg
                 class="w-6 h-6 text-gray-800 dark:text-white"
                 aria-hidden="true"
@@ -62,7 +69,7 @@ $cart_items = $data['cart_items'];
                 ></path>
               </svg>
             </a>
-            <a href="./profile.php">
+            <a href="#">
               <svg
                 class="w-6 h-6 text-gray-800 dark:text-white"
                 aria-hidden="true"
@@ -85,7 +92,7 @@ $cart_items = $data['cart_items'];
     </div>
 
     <section class="">
-      <h1>Your Shoping Cart</h1>
+      <h1>Your Orders</h1>
       <div class="text">
         <a href="./index.php">
           <svg
@@ -108,82 +115,14 @@ $cart_items = $data['cart_items'];
           </svg>
           <span>HOME</span>
         </a>
-        <p><span>/</span> Your Shoping Cart</p>
+        <p><span>/</span> Your Orders</p>
       </div>
     </section>
 
-
-    <div class="wishlist">
-      <h1 class="header">Your Cart Items</h1>
-      <svg
-        width="64"
-        height="24"
-        viewBox="0 0 64 24"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <rect x="0" y="11" width="16" height="2" rx="1" fill="#7B3B3B" />
-        <rect x="24" y="7" width="2" height="10" rx="1" fill="#7B3B3B" />
-        <rect x="30" y="5" width="2" height="14" rx="1" fill="#7B3B3B" />
-        <rect x="36" y="7" width="2" height="10" rx="1" fill="#7B3B3B" />
-        <rect x="48" y="11" width="16" height="2" rx="1" fill="#7B3B3B" />
-      </svg>
-      <div class="container-sm">
-        <div class="content">
-          <div class="section">
-            <div class="row one">
-              <span class="w-[170px]">Product Name </span>
-              <span>Price </span>
-              <span>Delete</span>
-            </div>
-
-            <div id="cart-list">
-              <?php foreach ($cart_items as $item): ?>
-              <div class="row two">
-                <span data-lable="Product Name ">
-                  <span>
-                    <img
-                      class="inline-block h-[60px]"
-                      src="<?php echo $item['img']; ?>"
-                      alt=""
-                    />
-                    <?php echo $item['title']; ?>
-                  </span>
-                </span>
-                <span data-lable="price">$<?php echo $item['price']; ?> </span>
-                <span
-                  id="remove-from-cart"
-                  data-product-id="<?php echo htmlspecialchars($item['product_id']); ?>"
-                  class="cursor-pointer"
-                  data-lable="Delete"
-                >
-                  <div class="bg-[#FFD6D6] rounded-[50%] p-[10px]">
-                    <svg
-                      width="23"
-                      height="23"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M9 3V4H4V6H20V4H15V3H9ZM6 8V20C6 21.1 6.9 22 8 22H16C17.1 22 18 21.1 18 20V8H6ZM9 10H11V18H9V10ZM13 10H15V18H13V10Z"
-                        fill="#FF4D4D"
-                      />
-                    </svg>
-                  </div>
-                </span>
-              </div>
-              <?php endforeach; ?>
-            </div>
-            <div class="pt-5 pb-10">
-              <button id="order-now" class="bg-[#804d4e] text-white px-5 py-3 rounded-md">Order Now</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
+    <div class="container-sm my-10">
+      
+      <p class="text-center"> here you can fetch user orders</p>
     </div>
 
-    <script src="./js/cart.js"></script>
   </body>
 </html>

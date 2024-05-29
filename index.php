@@ -22,23 +22,59 @@ $trendingProducts = $data['trendingProducts'];
           <h1 class="font-bold text-2xl">
             PetShop<span class="text-[#33c1c1] text-4xl">.</span>
           </h1>
-          <div class="flex items-center gap-4">
+          <div class="flex items-center gap-2">
+             <?php
+              echo $isLogin ? 
+              '<a href="./logout.php" class="" title="Logout">
+                <svg class="transition-all duration-300 w-6 h-6 text-[#333333] hover:text-[#33c1c1]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 10V4a1 1 0 0 0-1-1H9.914a1 1 0 0 0-.707.293L5.293 7.207A1 1 0 0 0 5 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2M10 3v4a1 1 0 0 1-1 1H5m5 6h9m0 0-2-2m2 2-2 2"/>
+                </svg>
+              </a>' :
+              '<a href="./login.php" class="btn-primary py-2 rounded-lg">SignIn</a>';
+            ?>
             <?php
               echo $isLogin ? 
               '<a href="./cart.php" title="Cart">
                 <div class="cart-badge">
-                  <svg class="transition-all duration-300 w-8 h-8 text-[#333333] hover:text-[#33c1c1]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 24 24">
-                    <path fill-rule="evenodd" d="M4 4a1 1 0 0 1 1-1h1.5a1 1 0 0 1 .979.796L7.939 6H19a1 1 0 0 1 .979 1.204l-1.25 6a1 1 0 0 1-.979.796H9.605l.208 1H17a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L5.686 5H5a1 1 0 0 1-1-1Z" clip-rule="evenodd" />
-                  </svg>
+                 
+              <svg
+                class="w-6 h-6 text-[#333333] hover:text-[#33c1c1]"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M12.268 6A2 2 0 0 0 14 9h1v1a2 2 0 0 0 3.04 1.708l-.311 1.496a1 1 0 0 1-.979.796H8.605l.208 1H16a3 3 0 1 1-2.83 2h-2.34a3 3 0 1 1-4.009-1.76L4.686 5H4a1 1 0 0 1 0-2h1.5a1 1 0 0 1 .979.796L6.939 6h5.329Z"
+                ></path>
+                <path
+                  d="M18 4a1 1 0 1 0-2 0v2h-2a1 1 0 1 0 0 2h2v2a1 1 0 1 0 2 0V8h2a1 1 0 1 0 0-2h-2V4Z"
+                ></path>
+              </svg>
                 </div>
               </a>' : null;
             ?>
+           
             <?php
               echo $isLogin ? 
-              '<a href="./logout.php" class="" title="Logout">
-                <svg class="transition-all duration-300 w-8 h-8 text-[#333333] hover:text-[#33c1c1]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 10V4a1 1 0 0 0-1-1H9.914a1 1 0 0 0-.707.293L5.293 7.207A1 1 0 0 0 5 7.914V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2M10 3v4a1 1 0 0 1-1 1H5m5 6h9m0 0-2-2m2 2-2 2"/>
-                </svg>
+              '<a href="./profile.php" class="" title="Logout">
+                 <svg
+                class="w-6 h-6 text-[#333333] hover:text-[#33c1c1]"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke="currentColor"
+                  stroke-width="1.9"
+                  d="M7 17v1a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1a3 3 0 0 0-3-3h-4a3 3 0 0 0-3 3Zm8-9a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                />
+              </svg>
               </a>' :
               '<a href="./login.php" class="btn-primary py-2 rounded-lg">SignIn</a>';
             ?>
