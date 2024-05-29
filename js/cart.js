@@ -32,7 +32,7 @@ function handleCartAction(event) {
       if (response.ok) {
         console.log(successMessage);
         // Get the row element and remove it
-        var row = button.closest(".row");
+        var row = button.closest(".carts-product");
         if (row) {
           row.remove();
         }

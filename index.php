@@ -13,7 +13,7 @@ $trendingProducts = $data['trendingProducts'];
     <script src="./lib/tailwind.js"></script>
     <script defer src="./js/index.js"></script>
     <link rel="stylesheet" href="./css/main.css" />
-    <link rel="shortcut icon" href="./img/favicon-16x16.png" type="image/x-icon" />
+    <link rel="icon" href="assets/imgs/cart/favicon.png">
   </head>
   <body>
     <nav class="bg-white py-4">

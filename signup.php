@@ -15,11 +15,8 @@ if ( isset($_SESSION["loggedin"])) {
     <title>Register</title>
     <script src="lib/tailwind.js"></script>
     <link rel="stylesheet" href="./css/main.css" />
-    <link
-      rel="shortcut icon"
-      href="./img/favicon-16x16.png"
-      type="image/x-icon"
-    />
+       <link rel="icon" href="assets/imgs/cart/favicon.png">
+
     <script src="lib/sweetalert.js"></script>
     <script defer src="js/signup.js"></script>
   </head>

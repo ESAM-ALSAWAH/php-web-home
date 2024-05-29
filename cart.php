@@ -137,7 +137,7 @@ $cart_items = $data['cart_items'];
 
             <div id="cart-list">
               <?php foreach ($cart_items as $item): ?>
-              <div class="p-[22px] mb-5 flex justify-between items-center bg-white text-sm sm:text-lg font-semibold text-[#333] border border-[rgba(222, 222, 222, 0.478)] rounded-md">
+              <div class="carts-product p-[22px] mb-5 flex justify-between items-center bg-white text-sm sm:text-lg font-semibold text-[#333] border border-[rgba(222, 222, 222, 0.478)] rounded-md">
                   <span class="flex-1">
                     <img
                       class="inline-block h-[60px]"
@@ -150,7 +150,7 @@ $cart_items = $data['cart_items'];
                 <span
                   id="remove-from-cart"
                   data-product-id="<?php echo htmlspecialchars($item['product_id']); ?>"
-                  class=" cursor-pointer"
+                  class="cursor-pointer"
                 >
                   <div class="bg-[#FFD6D6] rounded-[50%] p-[10px]">
                     <svg
