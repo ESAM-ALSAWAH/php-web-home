@@ -60,36 +60,48 @@ productButtons.forEach(function (button) {
 const orderButton = document.getElementById("order-now");
 
 orderButton.addEventListener("click", function () {
-  // Send a POST request to the PHP script
-  fetch("scripts/create_order.php", {
-    method: "POST",
-  })
-    .then((response) => {
-      if (response.ok) {
-        Swal.fire({
-          icon: "success",
-          title: "Order Placed Successfully!",
-          showConfirmButton: false,
-          timer: 1500,
-        }).then(() => {
-          document.getElementById("cart-list").innerHTML = "";
-        });
-      } else {
-        return response.json().then((data) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, Order Now!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Send a POST request to the PHP script
+      fetch("scripts/create_order.php", {
+        method: "POST",
+      })
+        .then((response) => {
+          if (response.ok) {
+            Swal.fire({
+              icon: "success",
+              title: "Order Placed Successfully!",
+              showConfirmButton: false,
+              timer: 1500,
+            }).then(() => {
+              document.getElementById("cart-list").innerHTML = "";
+            });
+          } else {
+            return response.json().then((data) => {
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: data.message,
+              });
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: data.message,
+            text: "Something went wrong!",
           });
         });
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Something went wrong!",
-      });
-    });
+    }
+  });
 });

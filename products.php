@@ -12,6 +12,7 @@ $products = $data['products'];
     <title>Pet Shop | Products</title>
     <script src="./lib/tailwind.js"></script>
     <script defer src="./js/index.js"></script>
+      <script src="./lib/sweetalert.js"></script>
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="shortcut icon" href="./img/favicon-16x16.png" type="image/x-icon" />
   </head>
@@ -114,14 +115,13 @@ $products = $data['products'];
       </div>
       <div id="product-list" class="mt-10">
         <div class="flex items-center justify-center flex-wrap gap-10">
-    <?php if (!empty($products)) : ?>
+<?php if (!empty($products)) : ?>
     <?php foreach ($products as $product) : ?>
         <div class="product-card relative min-w-[250px] max-w-[270px] w-full grid place-items-center gap-2 bg-white border rounded-lg py-5 px-5">
-            <div class="absolute top-2 right-2 cursor-pointer">
-                <svg class="w-6 h-6 text-[#33C1C1] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clip-rule="evenodd"/>
-</svg>
-
+            <div class="product-description absolute top-2 right-2 cursor-pointer" data-title="<?php echo htmlspecialchars($product['title']); ?>" data-description="<?php echo htmlspecialchars($product['description']); ?>">
+              <svg class="w-6 h-6 text-[#33C1C1] "  aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                  <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clip-rule="evenodd"/>
+              </svg>
             </div>
             <img src="<?php echo htmlspecialchars($product['img']); ?>" class="w-auto h-[200px] max-w-[200px]" alt="<?php echo htmlspecialchars($product['title']); ?>">
             <h5 class="text-lg"><?php echo htmlspecialchars($product['title']); ?></h5>
@@ -133,9 +133,9 @@ $products = $data['products'];
             <?php endif; ?>
         </div>
     <?php endforeach; ?>
-<?php else : ?>
-    <p>No products found.</p>
-<?php endif; ?>
+    <?php else : ?>
+        <p>No products found.</p>
+    <?php endif; ?>
 
         </div>
       </div>
@@ -151,5 +151,21 @@ $products = $data['products'];
         </h1>
       </div>
     </footer>
+    <script>
+      document.querySelectorAll('.product-description').forEach(element => {
+        
+          element.addEventListener('click', function() {
+              const title = this.getAttribute('data-title');
+              const description = this.getAttribute('data-description');
+              
+              Swal.fire({
+                  title: title,
+                  text: description,
+                  icon: null,
+                  confirmButtonText: 'Close'
+              });
+          });
+      });
+      </script>
   </body>
 </html>
