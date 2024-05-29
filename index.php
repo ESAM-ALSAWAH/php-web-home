@@ -76,7 +76,7 @@ $trendingProducts = $data['trendingProducts'];
                 />
               </svg>
               </a>' :
-              '<a href="./login.php" class="btn-primary py-2 rounded-lg">SignIn</a>';
+              null;
             ?>
           </div>
         </div>
@@ -93,7 +93,7 @@ $trendingProducts = $data['trendingProducts'];
             <h1 class="text-[#333333] font-[800] mb-10 --heading-one leading-tight">
               Everything your pet needs
             </h1>
-            <button class="btn-primary">SHOP NOW</button>
+            <a href="./products.php" class="btn-primary">SHOP NOW</a>
           </div>
           <div class="flex-1 hidden md:flex md:justify-end">
             <img src="./assets/imgs/hero-image.png" alt="pet" class="object-cover" />

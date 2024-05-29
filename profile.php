@@ -1,14 +1,6 @@
 <?php 
-require "./scripts/config.php";
-
-session_start();
-
-if ( !isset($_SESSION["loggedin"]) ) {
-  header("Location: ./login.php");
-  exit;
-}
-
-
+$data = include 'scripts/orders.php';
+$user_orders = $data['user_orders'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,8 +22,7 @@ if ( !isset($_SESSION["loggedin"]) ) {
   </head>
 
   <body>
-    <div class="up scrollUp z-[1000000000] fixed bottom-5">
-      <div class="container-ms">
+    <div class="up scrollUp z-[1000000000] fixed bottom-5 grid place-items-center">
         <svg
           width="25"
           height="25"
@@ -42,7 +33,6 @@ if ( !isset($_SESSION["loggedin"]) ) {
           <path d="M7 14l5-5 5 5" stroke="#fff" stroke-width="2" fill="none" />
           <path d="M7 20l5-5 5 5" stroke="#fff" stroke-width="2" fill="none" />
         </svg>
-      </div>
     </div>
 
     <div class="bg-[#804d4e]">
@@ -119,10 +109,44 @@ if ( !isset($_SESSION["loggedin"]) ) {
       </div>
     </section>
 
-    <div class="container-sm my-10">
-      
-      <p class="text-center"> here you can fetch user orders</p>
-    </div>
+      <div class="wishlist">
+      <h1 class="header">Your Orders History</h1>
+      <svg
+        width="64"
+        height="24"
+        viewBox="0 0 64 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect x="0" y="11" width="16" height="2" rx="1" fill="#7B3B3B" />
+        <rect x="24" y="7" width="2" height="10" rx="1" fill="#7B3B3B" />
+        <rect x="30" y="5" width="2" height="14" rx="1" fill="#7B3B3B" />
+        <rect x="36" y="7" width="2" height="10" rx="1" fill="#7B3B3B" />
+        <rect x="48" y="11" width="16" height="2" rx="1" fill="#7B3B3B" />
+      </svg>
+      <div class="container-sm">
+        <div class="content">
+          <div class="section">
+            <div class="p-[22px] mb-5 flex justify-between items-center bg-white text-sm sm:text-lg font-semibold text-[#333] border border-[rgba(222, 222, 222, 0.478)] rounded-md">
+              <span class="flex-1">Order ID</span>
+              <span class="flex-1">Total Amount</span>
+              <span class="flex-1">Order Date</span>
+            </div>
 
+            <div id="order-list">
+              <?php foreach ($user_orders as $item): ?>
+              <div class="p-[22px] mb-5 flex justify-between items-center bg-white text-sm sm:text-lg font-semibold text-[#333] border border-[rgba(222, 222, 222, 0.478)] rounded-md">
+                <span class="flex-1">
+                  <?php echo $item['order_id']; ?>
+                </span>
+                <span class="flex-1">$<?php echo $item['total_amount']; ?> </span>
+                <span class="flex-1"><?php echo $item['order_date']; ?> </span>
+              </div>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

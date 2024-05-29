@@ -72,8 +72,7 @@ orderButton.addEventListener("click", function () {
           showConfirmButton: false,
           timer: 1500,
         }).then(() => {
-          // Reload the page to update the cart
-          location.reload();
+          document.getElementById("cart-list").innerHTML = "";
         });
       } else {
         return response.json().then((data) => {

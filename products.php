@@ -76,7 +76,7 @@ $products = $data['products'];
                 />
               </svg>
               </a>' :
-              '<a href="./login.php" class="btn-primary py-2 rounded-lg">SignIn</a>';
+              null;
             ?>
           </div>
         </div>
@@ -134,18 +134,13 @@ $products = $data['products'];
         </div>
     <?php endforeach; ?>
 <?php else : ?>
-    <p>No trending products found.</p>
+    <p>No products found.</p>
 <?php endif; ?>
 
         </div>
       </div>
-      
+
     </div>
-
-    <!-- ------- -->
-
-
-
     <footer class="mt-[200px]">
       <div class="hidden sm:flex container-sm z-30 px-20 absolute -top-[5vh] md:-top-[8vh] left-1/2 -translate-x-1/2">
         <img src="./assets/imgs/footer-image.png" class="mx-auto w-full max-w-[1100px]">

@@ -13,6 +13,7 @@ function respondWithSuccess($message) {
     echo json_encode(["status" => "success", "message" => $message]);
 }
 
+// Check if user is logged in
 if (!isset($_SESSION['loggedin'])) {
     respondWithError(401, "Unauthorized");
 }
@@ -59,46 +60,42 @@ $sql_insert_order = "INSERT INTO orders (user_id, total_amount) VALUES (?, ?)";
 $stmt_insert_order = mysqli_prepare($conn, $sql_insert_order);
 mysqli_stmt_bind_param($stmt_insert_order, "id", $user_id, $order_total);
 
-// Execute order insertion
-if (mysqli_stmt_execute($stmt_insert_order)) {
-    $order_id = mysqli_insert_id($conn);
-    mysqli_stmt_close($stmt_insert_order);
+$result = mysqli_stmt_execute($stmt_insert_order);
 
-    // Insert order items
-    $sql_insert_order_item = "INSERT INTO order_items (order_id, product_id, price) VALUES (?, ?, ?)";
-    $stmt_insert_order_item = mysqli_prepare($conn, $sql_insert_order_item);
-    mysqli_stmt_bind_param($stmt_insert_order_item, "iid", $order_id, $product_id, $product_price);
+// Check if order insertion was successful
+if ($result) {
+    // Retrieve cart ID
+    $sql_get_cart_id = "SELECT id FROM carts WHERE user_id = ?";
+    $stmt_get_cart_id = mysqli_prepare($conn, $sql_get_cart_id);
+    mysqli_stmt_bind_param($stmt_get_cart_id, "i", $user_id);
+    mysqli_stmt_execute($stmt_get_cart_id);
+    mysqli_stmt_bind_result($stmt_get_cart_id, $cart_id);
+    mysqli_stmt_fetch($stmt_get_cart_id);
+    mysqli_stmt_close($stmt_get_cart_id);
 
-    foreach ($order_items as $item) {
-        $product_id = $item['product_id'];
-        $product_price = $item['price'];
-        mysqli_stmt_execute($stmt_insert_order_item);
+    if (!$cart_id) {
+        respondWithError(404, "Cart not found for the user.");
     }
 
-    mysqli_stmt_close($stmt_insert_order_item);
-
-    // Empty user's cart
-    $sql_empty_cart = "DELETE FROM cart_items WHERE cart_id = (SELECT id FROM carts WHERE user_id = ?)";
+    // Empty cart
+    $sql_empty_cart = "DELETE FROM cart_items WHERE cart_id = ?";
     $stmt_empty_cart = mysqli_prepare($conn, $sql_empty_cart);
-    mysqli_stmt_bind_param($stmt_empty_cart, "i", $user_id);
-    if (mysqli_stmt_execute($stmt_empty_cart)) {
-        // Check if any rows were affected
-        if (mysqli_stmt_affected_rows($stmt_empty_cart) > 0) {
+    mysqli_stmt_bind_param($stmt_empty_cart, "i", $cart_id);
+    if(mysqli_stmt_execute($stmt_empty_cart)) {
+        if(mysqli_stmt_affected_rows($stmt_empty_cart) > 0) {
             respondWithSuccess("Order placed successfully and cart emptied.");
         } else {
             respondWithError(500, "Failed to empty the cart.");
         }
     } else {
-        // Error handling
         $error_message = mysqli_error($conn);
         respondWithError(500, "Error emptying the cart: " . $error_message);
     }
     mysqli_stmt_close($stmt_empty_cart);
 } else {
-    // Error handling
-    mysqli_stmt_close($stmt_insert_order);
-    respondWithError(500, "Failed to create order.");
+    respondWithError(500, "Error placing the order.");
 }
 
+mysqli_stmt_close($stmt_insert_order);
 mysqli_close($conn);
 ?>

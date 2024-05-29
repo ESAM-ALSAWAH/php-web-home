@@ -23,8 +23,7 @@ $cart_items = $data['cart_items'];
   </head>
 
   <body>
-    <div class="up scrollUp z-[1000000000] fixed bottom-5">
-      <div class="container-ms">
+    <div class="up scrollUp z-[1000000000] fixed bottom-5 grid place-items-center">
         <svg
           width="25"
           height="25"
@@ -35,7 +34,6 @@ $cart_items = $data['cart_items'];
           <path d="M7 14l5-5 5 5" stroke="#fff" stroke-width="2" fill="none" />
           <path d="M7 20l5-5 5 5" stroke="#fff" stroke-width="2" fill="none" />
         </svg>
-      </div>
     </div>
 
     <div class="bg-[#804d4e]">
@@ -131,17 +129,16 @@ $cart_items = $data['cart_items'];
       <div class="container-sm">
         <div class="content">
           <div class="section">
-            <div class="row one">
-              <span class="w-[170px]">Product Name </span>
-              <span>Price </span>
-              <span>Delete</span>
+            <div class="p-[22px] mb-5 flex justify-between items-center bg-white text-sm sm:text-lg font-semibold text-[#333] border border-[rgba(222, 222, 222, 0.478)] rounded-md">
+              <span class="flex-1">Product Name </span>
+              <span class="flex-1">Price </span>
+              <span >Delete</span>
             </div>
 
             <div id="cart-list">
               <?php foreach ($cart_items as $item): ?>
-              <div class="row two">
-                <span data-lable="Product Name ">
-                  <span>
+              <div class="p-[22px] mb-5 flex justify-between items-center bg-white text-sm sm:text-lg font-semibold text-[#333] border border-[rgba(222, 222, 222, 0.478)] rounded-md">
+                  <span class="flex-1">
                     <img
                       class="inline-block h-[60px]"
                       src="<?php echo $item['img']; ?>"
@@ -149,13 +146,11 @@ $cart_items = $data['cart_items'];
                     />
                     <?php echo $item['title']; ?>
                   </span>
-                </span>
-                <span data-lable="price">$<?php echo $item['price']; ?> </span>
+                <span class="flex-1">$<?php echo $item['price']; ?> </span>
                 <span
                   id="remove-from-cart"
                   data-product-id="<?php echo htmlspecialchars($item['product_id']); ?>"
-                  class="cursor-pointer"
-                  data-lable="Delete"
+                  class=" cursor-pointer"
                 >
                   <div class="bg-[#FFD6D6] rounded-[50%] p-[10px]">
                     <svg
